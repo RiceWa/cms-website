@@ -30,6 +30,8 @@ app.use(express.json()); // Parses JSON requests
 
 // API Routes
 app.use("/api/posts", require("./routes/postRoutes"));
+app.use("/api/auth", require("./routes/authRoutes"));
+
 
 // Basic Route
 app.get("/", (req, res) => {

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
+const authMiddleware = require("../middleware/authMiddleware");
 
 // 📌 Get all posts (READ)
 router.get("/", async (req, res) => {
@@ -12,10 +13,15 @@ router.get("/", async (req, res) => {
     }
 });
 
-// 📌 Create a new post (CREATE)
-router.post("/", async (req, res) => {
+// 📌 Create a new post (Protected)
+router.post("/", authMiddleware, async (req, res) => {
     try {
-        const newPost = new Post(req.body);
+        const newPost = new Post({
+            title: req.body.title,
+            content: req.body.content,
+            author: req.user.userId // Get user ID from token
+        });
+
         await newPost.save();
         res.status(201).json(newPost);
     } catch (err) {
@@ -23,18 +29,22 @@ router.post("/", async (req, res) => {
     }
 });
 
-// 📌 Update a post (UPDATE)
-router.put("/:id", async (req, res) => {
+// 📌 Edit a post (Protected)
+router.put("/:id", authMiddleware, async (req, res) => {
     try {
-        const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedPost = await Post.findByIdAndUpdate(
+            req.params.id,
+            { title: req.body.title, content: req.body.content },
+            { new: true }
+        );
         res.json(updatedPost);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
-// 📌 Delete a post (DELETE)
-router.delete("/:id", async (req, res) => {
+// 📌 Delete a post (Protected)
+router.delete("/:id", authMiddleware, async (req, res) => {
     try {
         await Post.findByIdAndDelete(req.params.id);
         res.json({ message: "Post deleted" });
