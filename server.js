@@ -25,12 +25,14 @@ require("./models/Post");
 require("./models/User");
 require("./models/Category");
 
+
 // Middleware
 app.use(express.json()); // Parses JSON requests
 
 // API Routes
 app.use("/api/posts", require("./routes/postRoutes"));
 app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/projects", require("./routes/projectRoutes"));
 
 
 // Basic Route
