@@ -34,6 +34,11 @@ app.use("/api/posts", require("./routes/postRoutes"));
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/projects", require("./routes/projectRoutes"));
 
+// Global Error Handling Middleware
+app.use((err, req, res, next) => {
+    console.error("❌ Server Error:", err.stack);
+    res.status(500).json({ error: "Internal Server Error" });
+});
 
 // Basic Route
 app.get("/", (req, res) => {

@@ -30,6 +30,18 @@ router.get("/", async (req, res) => {
 // 📌 Create a new post (Protected)
 router.post("/", authMiddleware, async (req, res) => {
     try {
+
+        console.log("📥 Received POST request:");
+        console.log("Title:", req.body.title);
+        console.log("Content:", req.body.content);
+        console.log("Category:", req.body.category);
+        console.log("Tags:", req.body.tags);
+        console.log("User ID:", req.user.userId);
+
+        if (!req.body.title || !req.body.content) {
+            return res.status(400).json({ error: "Title and content are required." });
+        }
+
         const newPost = new Post({
             title: req.body.title,
             content: req.body.content,

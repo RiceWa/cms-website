@@ -4,6 +4,8 @@ const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 // Middleware to protect routes
 const authMiddleware = (req, res, next) => {
+
+    console.log("Authorization Header:", req.headers.authorization);
     const token = req.header("Authorization"); // Get token from request header
 
     if (!token) {
