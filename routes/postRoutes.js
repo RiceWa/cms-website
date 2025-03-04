@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
         if (req.query.category) {
             filter.category = req.query.category;
         }
-        const posts = await Post.find(filter);
+        const posts = await Post.find(filter).sort({ createdAt: -1 });
         res.json(posts);
     } catch (err) {
         res.status(500).json({ error: err.message });
