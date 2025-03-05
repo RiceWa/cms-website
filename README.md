@@ -1,4 +1,4 @@
-ricewa.ca
+[Link to the Website](ricewa.ca)
 
 Personal cms website built by me.
 
