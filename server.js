@@ -3,28 +3,31 @@ const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
 
-
 const app = express();
 
-app.use(cors());  // Enable CORS globally
-
+// ✅ CORS Configuration
+const corsOptions = {
+    origin: ["https://ricewa.ca", "http://ricewa.ca"], // ✅ Allow frontend domain
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // ✅ Allow cookies/auth headers
+    optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions)); // ✅ Apply CORS settings
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
     dbName: "cms",
 })
-
     .then(() => console.log("✅ MongoDB Connected Successfully!"))
     .catch(err => {
         console.error("❌ MongoDB Connection Error:", err);
         process.exit(1);
     });
 
-    // Load Models
+// Load Models
 require("./models/Post");
 require("./models/User");
 require("./models/Category");
-
 
 // Middleware
 app.use(express.json()); // Parses JSON requests
