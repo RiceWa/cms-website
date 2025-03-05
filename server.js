@@ -7,12 +7,12 @@ const app = express();
 
 // ✅ CORS Configuration
 const corsOptions = {
-    origin: ["https://ricewa.ca", "http://ricewa.ca"], // ✅ Allow frontend domain
+    origin: ["http://ricewa.ca", "https://ricewa.ca"], // ✅ Allow both HTTP & HTTPS
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // ✅ Allow cookies/auth headers
-    optionsSuccessStatus: 204
+    allowedHeaders: ["Content-Type", "Authorization"] // ✅ Explicitly allow necessary headers
 };
-app.use(cors(corsOptions)); // ✅ Apply CORS settings
+app.use(cors(corsOptions));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
