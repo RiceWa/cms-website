@@ -45,7 +45,7 @@ router.post("/", authMiddleware, async (req, res) => {
         const newPost = new Post({
             title: req.body.title,
             content: req.body.content,
-            author: req.user.userId,
+            author: req.user._id,
             category: req.body.category,
             tags: processTags(req.body.tags)
         });
