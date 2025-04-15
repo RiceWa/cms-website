@@ -7,7 +7,7 @@ const app = express();
 
 // ✅ CORS Configuration
 const corsOptions = {
-    origin: ["http://ricewa.ca", "https://ricewa.ca"], // ✅ Allow both HTTP & HTTPS
+    origin: ["http://ricewa.ca", "https://ricewa.ca", "http://localhost:3000"], // ✅ Allow both HTTP & HTTPS
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // ✅ Allow cookies/auth headers
     allowedHeaders: ["Content-Type", "Authorization"] // ✅ Explicitly allow necessary headers
